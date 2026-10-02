@@ -35,6 +35,11 @@ jobs:
       - name: Lint (ruff)
         run: ruff check .
 
+      - name: Create dummy data for CI test
+        run: |
+          mkdir -p processed_data
+          python -c "import numpy as np; np.savez('processed_data/train.npz', X=np.zeros((10, 2276)), y=np.zeros(10)); np.savez('processed_data/val.npz', X=np.zeros((5, 2276)), y=np.zeros(5)); np.savez('processed_data/test.npz', X=np.zeros((5, 2276)), y=np.zeros(5))"
+
       - name: Unit tests
         run: pytest -v
 
