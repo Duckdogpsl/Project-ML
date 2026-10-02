@@ -4,9 +4,7 @@ import numpy as np
 import pytest
 from PIL import Image
 
-from common import DATA_DIR, SPLITS, extract_features, list_classes, short_label
-
-EXPECTED_CLASSES = 10
+from common import CLASSES, DATA_DIR, SPLITS, extract_features, list_classes, short_label
 
 
 def random_image(size=(256, 256), seed=0):
@@ -46,7 +44,8 @@ def test_color_histogram_is_normalized():
 @pytest.mark.skipif(not DATA_DIR.exists(), reason=f"ไม่พบ dataset ที่ {DATA_DIR}")
 def test_dataset_structure():
     reference = list_classes(DATA_DIR / "train")
-    assert len(reference) == EXPECTED_CLASSES
+    if CLASSES is not None:
+        assert reference == sorted(CLASSES), "คลาสที่กำหนดใน CLASSES ต้องมีครบใน dataset"
     for split in SPLITS:
         assert (DATA_DIR / split).is_dir(), f"missing split: {split}"
         assert list_classes(DATA_DIR / split) == reference

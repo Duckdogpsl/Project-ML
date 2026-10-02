@@ -18,6 +18,18 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / os.getenv("DATA_DIR", "dataset/tomato")
 SPLITS = ("train", "val", "test")
 IMAGE_EXTS = {".jpg", ".jpeg", ".png"}
+# คลาสที่ใช้เทรน (ชื่อโฟลเดอร์) — โฟลเดอร์อื่นใน dataset จะถูกข้ามไป
+# เปลี่ยนได้ผ่าน env เช่น CLASSES=Tomato__Tomato_Healthy,Tomato__Tomato_Leaf_Mold
+# หรือ CLASSES=all เพื่อใช้ทุกคลาส
+DEFAULT_CLASSES = (
+    "Tomato__Tomato_Healthy",
+    "Tomato__Tomato_Mosaic_virus",
+    "Tomato__Tomato_Yellow_Leaf_Curl_Virus",
+)
+_classes_env = os.getenv("CLASSES", ",".join(DEFAULT_CLASSES)).strip()
+CLASSES = None if _classes_env.lower() == "all" else tuple(
+    c.strip() for c in _classes_env.split(",") if c.strip()
+)
 # จำกัดจำนวนภาพต่อคลาสต่อ split (0 = ใช้ทั้งหมด) — ใช้ลดเวลาตอนทดลองหรือรันใน CI
 MAX_PER_CLASS = int(os.getenv("MAX_PER_CLASS", "0"))
 SEED = 42
@@ -50,7 +62,9 @@ def short_label(class_dir_name: str) -> str:
 
 
 def list_classes(split_dir: Path) -> list[str]:
-    return sorted(p.name for p in split_dir.iterdir() if p.is_dir())
+    """คืนชื่อโฟลเดอร์คลาสใน split นั้น เฉพาะคลาสที่อยู่ใน CLASSES"""
+    found = sorted(p.name for p in split_dir.iterdir() if p.is_dir())
+    return found if CLASSES is None else [c for c in found if c in CLASSES]
 
 
 def list_images(class_dir: Path) -> list[Path]:

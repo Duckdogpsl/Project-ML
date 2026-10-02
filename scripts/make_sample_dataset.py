@@ -11,7 +11,7 @@ import sys
 
 import numpy as np
 
-from common import IMAGE_EXTS, ROOT, SEED, SPLITS
+from common import IMAGE_EXTS, ROOT, SEED, SPLITS, list_classes
 
 SRC = ROOT / "dataset" / "tomato"
 DST = ROOT / "dataset" / "sample"
@@ -23,7 +23,8 @@ def main(per_split: list[int]):
         shutil.rmtree(DST)
     total = 0
     for split, n in zip(SPLITS, per_split):
-        for class_dir in sorted(p for p in (SRC / split).iterdir() if p.is_dir()):
+        for name in list_classes(SRC / split):
+            class_dir = SRC / split / name
             files = sorted(f for f in class_dir.iterdir() if f.suffix.lower() in IMAGE_EXTS)
             out = DST / split / class_dir.name
             out.mkdir(parents=True)

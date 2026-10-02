@@ -17,7 +17,15 @@ from collections import defaultdict
 import mlflow
 from PIL import Image
 
-from common import DATA_DIR, SPLITS, list_classes, list_images, setup_mlflow
+from common import (
+    CLASSES,
+    DATA_DIR,
+    SPLITS,
+    list_classes,
+    list_images,
+    setup_mlflow,
+    short_label,
+)
 
 MIN_IMAGES_PER_CLASS = int(os.getenv("MIN_IMAGES_PER_CLASS", "5"))
 
@@ -41,6 +49,11 @@ def validate_data():
         # 2. คลาสตรงกันทุก split ไหม
         classes = {s: list_classes(DATA_DIR / s) for s in SPLITS}
         reference = classes["train"]
+        if CLASSES is not None:
+            missing_cls = sorted(set(CLASSES) - set(reference))
+            if missing_cls:
+                errors.append(f"ไม่พบคลาสที่กำหนดใน CLASSES: {missing_cls}")
+            print(f"Using {len(reference)} classes: {[short_label(c) for c in reference]}")
         for s in SPLITS:
             if classes[s] != reference:
                 errors.append(f"คลาสใน {s} ไม่ตรงกับ train: {sorted(set(classes[s]) ^ set(reference))}")
