@@ -11,3 +11,6 @@ report-*.xml
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# dataset เต็ม (~1 GB) ไม่ขึ้น Git — CI ใช้ dataset/sample แทน
+dataset/tomato/
