@@ -28,7 +28,7 @@ def validate_data():
     with mlflow.start_run(run_name="data_validation"):
         mlflow.set_tag("ml.step", "data_validation")
         mlflow.log_param("data_dir", str(DATA_DIR))
-        print(f"Validating dataset at: {DATA_DIeeR}")
+        print(f"Validating dataset at: {DATA_DIR}")
 
         errors: list[str] = []
         warnings: list[str] = []
