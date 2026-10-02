@@ -1,0 +1,20 @@
+name: Hello Actions
+
+on:
+  workflow_dispatch:   # กดรันเองได้จากแท็บ Actions
+  push:
+    branches: [ main ]
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Say hello
+        run: |
+          echo "Hello GitHub Actions!"
+          echo "Repository: ${{ github.repository }}"
+          echo "Triggered by: ${{ github.actor }}"
+          ls -la

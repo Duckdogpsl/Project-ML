@@ -1,0 +1,55 @@
+name: ML Pipeline CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test-and-run-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code (รวมไฟล์ Git LFS ถ้ามี)
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest
+
+      - name: Run unit tests
+        run: pytest tests/ -v
+
+      - name: 01 - Data validation
+        run: python scripts/01_data_validation.py
+
+      - name: 02 - Data preprocessing
+        run: python scripts/02_data_preprocessing.py
+
+      - name: 03 - Train, evaluate, register
+        run: python scripts/03_train_evaluate_register.py
+
+      - name: 04 - Load model and predict
+        run: python scripts/04_load_and_predict.py
+
+      - name: Upload MLflow runs and models
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ml-outputs
+          path: |
+            mlruns/
+            models/
+          if-no-files-found: ignore
