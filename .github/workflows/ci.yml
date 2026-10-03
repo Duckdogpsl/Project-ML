@@ -35,19 +35,15 @@ jobs:
       - name: Lint (ruff)
         run: ruff check .
 
-      - name: Create dummy data for CI test
-        run: |
-          mkdir -p processed_data
-          python -c "import numpy as np; np.savez('processed_data/train.npz', X=np.zeros((10, 2276)), y=np.zeros(10)); np.savez('processed_data/val.npz', X=np.zeros((5, 2276)), y=np.zeros(5)); np.savez('processed_data/test.npz', X=np.zeros((5, 2276)), y=np.zeros(5))"
-
-      - name: Unit tests
-        run: pytest -v
-
       - name: 01 - Data validation
         run: python scripts/01_data_validation.py
 
       - name: 02 - Data preprocessing
         run: python scripts/02_data_preprocessing.py
+
+      # ต้องรันหลังขั้น 02 เพราะเทสบางตัวตรวจไฟล์ processed_data ที่ 02 สร้าง
+      - name: Unit tests
+        run: pytest -v
 
       - name: 03 - Train, evaluate, register
         run: python scripts/03_train_evaluate_register.py
