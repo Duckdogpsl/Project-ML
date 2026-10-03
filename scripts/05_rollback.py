@@ -1,12 +1,3 @@
-"""ขั้นที่ 5: ดูทะเบียนโมเดลและย้อนกลับ (rollback) ไปเวอร์ชันก่อนหน้า
-
-    python scripts/05_rollback.py            # แสดงทุกเวอร์ชัน และตัวที่เป็น @champion
-    python scripts/05_rollback.py previous   # ย้าย @champion ไปเวอร์ชันก่อนหน้า
-    python scripts/05_rollback.py 1          # ย้าย @champion ไปเวอร์ชัน 1 ตามที่ระบุ
-
-หลัง rollback ต้องรีสตาร์ท API เพื่อให้โหลดโมเดลตัวที่ถูกย้อนกลับ
-"""
-
 import sys
 
 from mlflow.exceptions import MlflowException

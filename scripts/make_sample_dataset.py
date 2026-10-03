@@ -1,11 +1,3 @@
-"""สร้าง dataset/sample ขนาดเล็กจาก dataset/tomato เพื่อ commit ขึ้น GitHub ให้ CI ใช้
-
-dataset/tomato เต็มมีขนาดราว 1 GB จึงไม่ควรขึ้น Git ส่วน sample นี้มีแค่ไม่กี่ MB
-
-    python scripts/make_sample_dataset.py            # ค่าเริ่มต้น 40/10/10 ภาพต่อคลาส
-    python scripts/make_sample_dataset.py 60 15 15   # กำหนดจำนวน train val test เอง
-"""
-
 import shutil
 import sys
 

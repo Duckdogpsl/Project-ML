@@ -1,11 +1,3 @@
-"""ขั้นที่ 4: โหลดโมเดล @champion จาก MLflow Model Registry แล้วทำนายภาพใบมะเขือเทศ
-
-ใช้งาน
-    python scripts/04_load_and_predict.py                     # สุ่มภาพจาก test มาทดสอบ
-    python scripts/04_load_and_predict.py leaf1.jpg leaf2.jpg # ทำนายภาพที่ระบุ
-    python scripts/04_load_and_predict.py path/to/folder      # ทำนายทุกภาพในโฟลเดอร์
-"""
-
 import sys
 from pathlib import Path
 

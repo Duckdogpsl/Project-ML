@@ -1,19 +1,3 @@
-"""ขั้นที่ 3: เทรนหลายโมเดล เลือกตัวที่ดีที่สุดจาก val ประเมินบน test แล้ว register ลง MLflow
-
-- baseline (ทายคลาสที่พบบ่อยสุด) ไว้เป็นเส้นเทียบว่าโมเดลจริงดีขึ้นแค่ไหน
-- ทุกโมเดลที่ลองถูกบันทึกเป็น child run พร้อมหลักฐานครบ 6 อย่าง (ดู tracking.py)
-- โมเดลที่ดีที่สุดถูก register ชื่อ tomato-leaf-classifier
-- ด่านตรวจก่อนอนุมัติ (Quality Gate) 2 ด่าน
-    1) val accuracy ต้องไม่ต่ำกว่า MIN_VAL_ACCURACY
-    2) ต้องไม่แย่กว่าโมเดล @champion ตัวปัจจุบัน (ถ้าแย่กว่า จะ register แต่ไม่เลื่อน @champion)
-       ตั้ง FORCE_PROMOTE=1 เพื่อข้ามด่านที่ 2
-
-เลือกโมเดลเองได้ด้วย env
-    MODELS=baseline,logreg,svc_rbf   # เลือกเฉพาะบางตัว
-    MODELS=sweep                     # รันทุกชุดพารามิเตอร์ (ทดลองปรับค่า) — ช้ากว่า
-(logreg ช้ามากกับข้อมูลเต็ม แต่เร็วกับ sample)
-"""
-
 import inspect
 import os
 import time

@@ -1,14 +1,3 @@
-"""ขั้นที่ 1: ตรวจความถูกต้องของ dataset ภาพใบมะเขือเทศ แล้วบันทึกผลลง MLflow
-
-สิ่งที่ตรวจ
-  1. มีโฟลเดอร์ train / val / test ครบ
-  2. ทุก split มีชุดคลาสเหมือนกัน
-  3. ทุกคลาสมีภาพไม่น้อยกว่า MIN_IMAGES_PER_CLASS
-  4. ภาพเปิดได้จริง (ไม่เสีย) และเป็นภาพสี
-  5. ภาพซ้ำข้าม split (data leakage) — รายงานเป็นคำเตือน
-ถ้าข้อ 1–4 ไม่ผ่าน สคริปต์จะจบด้วย exit code != 0 เพื่อให้ GitHub Actions หยุด pipeline
-"""
-
 import hashlib
 import json
 import os

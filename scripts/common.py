@@ -1,9 +1,3 @@
-"""ค่าตั้งต้นและฟังก์ชันที่ทุกขั้นของ pipeline ใช้ร่วมกัน
-
-ปรับค่าได้ผ่าน environment variable โดยไม่ต้องแก้โค้ด เช่น
-    DATA_DIR=dataset/sample MAX_PER_CLASS=50 python scripts/01_data_validation.py
-"""
-
 import os
 from pathlib import Path
 

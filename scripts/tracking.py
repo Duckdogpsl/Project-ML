@@ -1,13 +1,3 @@
-"""ฟังก์ชันช่วยบันทึก 'หลักฐาน' ของการทดลองลง MLflow ให้ครบ 6 อย่างตามใบงาน
-
-  1. เวอร์ชันโค้ด        -> git commit (tag: git_commit)
-  2. เวอร์ชันข้อมูล      -> hash ของข้อมูลที่ใช้เทรนจริง (tag: data_version)
-  3. ไฮเปอร์พารามิเตอร์  -> log_params (ทำในสคริปต์ 03)
-  4. ตัวชี้วัด            -> log_metrics (ทำในสคริปต์ 03)
-  5. ไฟล์ผลลัพธ์          -> confusion matrix, report, ตารางเทียบโมเดล (ทำในสคริปต์ 03)
-  6. สภาพแวดล้อม         -> environment.json + requirements_freeze.txt
-"""
-
 import hashlib
 import os
 import platform
