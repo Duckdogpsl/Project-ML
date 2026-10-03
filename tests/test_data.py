@@ -4,7 +4,22 @@ import numpy as np
 import pytest
 from PIL import Image
 
-from common import CLASSES, DATA_DIR, SPLITS, extract_features, list_classes, short_label,PROCESSED_DIR
+from common import (
+    CLASSES,
+    DATA_DIR,
+    PROCESSED_DIR,
+    SPLITS,
+    extract_features,
+    list_classes,
+    short_label,
+)
+
+# ข้ามเทสชุด processed ถ้ายังไม่เคยรันขั้น 02
+needs_processed = pytest.mark.skipif(
+    not all((PROCESSED_DIR / f"{s}.npz").exists() for s in SPLITS),
+    reason="ยังไม่มี processed_data — รัน scripts/02_data_preprocessing.py ก่อน",
+)
+
 
 def random_image(size=(256, 256), seed=0):
     rng = np.random.default_rng(seed)
@@ -49,15 +64,19 @@ def test_dataset_structure():
         assert (DATA_DIR / split).is_dir(), f"missing split: {split}"
         assert list_classes(DATA_DIR / split) == reference
 
+
 # --- เพิ่มส่วนทดสอบไฟล์ผลลัพธ์ .npz จากขั้นตอน Preprocessing ---
 
 
+@needs_processed
 def test_processed_files_exist():
     """ตรวจสอบว่าสคริปต์ Preprocessing สร้างไฟล์ .npz ครบทุก split หรือไม่"""
     for split in SPLITS:
         filepath = PROCESSED_DIR / f"{split}.npz"
         assert filepath.exists(), f"ไม่พบไฟล์: {filepath}"
 
+
+@needs_processed
 def test_processed_data_shapes():
     """ตรวจสอบว่าจำนวนข้อมูล X (features) และ y (labels) ตรงกัน และมิติถูกต้อง"""
     for split in SPLITS:
