@@ -6,7 +6,7 @@ select = ["E", "F", "I"]
 ignore = ["E501"]
 
 [tool.ruff.lint.isort]
-known-local-folder = ["common"]
+known-local-folder = ["common", "tracking"]
 
 [tool.pytest.ini_options]
 # ให้ไฟล์ใน tests/ import common.py จาก scripts/ ได้
