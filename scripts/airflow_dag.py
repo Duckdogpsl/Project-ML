@@ -1,12 +1,3 @@
-"""(ทางเลือก) Pipeline เดียวกันในรูป Airflow DAG
-
-Airflow รันบน Windows ตรง ๆ ไม่ได้ ต้องใช้ WSL2 หรือ Docker
-คัดลอก/ลิงก์ไฟล์นี้ไปไว้ในโฟลเดอร์ dags ของ Airflow แล้วตั้ง env
-    export TOMATO_PROJECT_DIR=/path/to/project
-    airflow standalone        # เปิด http://localhost:8080
-กด Trigger DAG พร้อมแก้ params ได้จากหน้า UI
-"""
-
 import os
 from datetime import datetime
 from pathlib import Path

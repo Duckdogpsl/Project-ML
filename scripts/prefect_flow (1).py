@@ -1,24 +1,3 @@
-"""Pipeline Orchestration ด้วย Prefect — ร้อยสคริปต์ 01 -> 02 -> 03 -> 04 เป็น flow เดียว
-
-โครงสร้างโปรเจกต์ที่คาดไว้
-    <project>/
-      scripts/   01_data_validation.py, 02_..., 03_..., 04_..., common.py
-      pipelines/ prefect_flow.py   <- ไฟล์นี้
-
-แต่ละ task รันสคริปต์เดิมเป็น subprocess (ไม่ต้องแก้สคริปต์เลย) เพราะ
-  - common.py อ่าน env (DATA_DIR, CLASSES, ...) ตอน import จึงต้องตั้ง env ก่อนเริ่ม process
-  - สคริปต์ใช้ raise SystemExit เป็น quality gate -> exit code != 0 -> task ล้ม -> flow หยุด
-    (ถ้า import มารันใน process เดียวกัน SystemExit จะไปฆ่า worker ของ Prefect)
-
-ใช้งาน
-    pip install prefect
-    python pipelines/prefect_flow.py                          # รัน 1 ครั้งด้วย dataset/sample
-    python pipelines/prefect_flow.py --data-dir dataset/tomato --models random_forest,svc_rbf
-    python pipelines/prefect_flow.py --serve                  # สร้าง deployment ตั้งเวลารันทุกวัน
-
-ดู UI:  prefect server start   แล้วเปิด http://127.0.0.1:4200
-"""
-
 import argparse
 import os
 import subprocess
